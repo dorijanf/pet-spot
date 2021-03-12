@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using PetSpot.API.Extensions;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Hosting;
+using NLog;
+using System.IO;
 
 namespace PetSpot.API
 {
@@ -12,6 +14,7 @@ namespace PetSpot.API
     {
         public Startup(IConfiguration configuration)
         {
+            LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "\\Configuration\\nlog.config"));
             Configuration = configuration;
         }
 
@@ -20,19 +23,30 @@ namespace PetSpot.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper(typeof(Startup));
+            services.ConfigureLoggingServices();
+            services.AddValidationServices();
+            services.AddControllerServices();
             services.ConfigureCors();
             services.ConfigureIISIntegration();
             services.AddControllers();
             services.ConfigureSwagger();
             services.ConfigureDatabaseContext(Configuration);
+            services.ConfigureIdentity();
+            services.ConfigureJwtSettings(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseExceptionHandler("/error-local-development");
             }
+            else
+            {
+                app.UseExceptionHandler("/error");
+            }
+
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using PetSpot.DATA.Entities;
+using PetSpot.DATA.Models;
 
 namespace PetSpot.API.Configuration
 {
@@ -6,7 +8,8 @@ namespace PetSpot.API.Configuration
     {
         public Automapper()
         {
-
+            CreateMap<TokenResultDto, AuthorizeResponseDto>();
+            CreateMap<RegisterUserBm, User>();
         }
     }
 }

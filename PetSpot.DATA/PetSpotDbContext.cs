@@ -108,6 +108,14 @@ namespace PetSpot.DATA
                     new Species { Id = 10, Name = "Ferret" }
                     );
             });
+
+            modelBuilder.Entity<UserRole>(entity =>
+            {
+                entity.HasData(
+                    new UserRole { Id = "1", Name = "Registered user", NormalizedName = "registered user" },
+                    new UserRole { Id = "2", Name = "Administrator", NormalizedName = "administrator" }
+                );
+            });
         }
     }
 }
