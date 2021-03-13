@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 
 namespace PetSpot.API.Services
 {
+    /// <inheritdoc/>
     public class AccountService : IAccountService
     {
         private readonly UserManager<User> userManager;
@@ -105,11 +106,7 @@ namespace PetSpot.API.Services
             logger.LogInfo($"REGISTRATION SUCCESSFUL : user with email {model.Email} already exists.");
         }
 
-        /// <summary>
-        /// Creates a JWT token asynchronously
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns>Token result object containing the token and expiration date</returns>
+        // Creates a JWT token asynchronously
         private async Task<TokenResultDto> CreateTokenAsync(User user)
         {
             var claims = new List<Claim>

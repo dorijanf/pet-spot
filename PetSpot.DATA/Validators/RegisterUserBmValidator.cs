@@ -50,21 +50,25 @@ namespace PetSpot.DATA.Validators
 
         }
 
+        // Method that checks if a string contains lowercase characters.
         private bool ContainLowercase(string text)
         {
             return text.Any(ch => char.IsLower(ch));
         }
 
+        // Method that checks if a string contains uppercase characters.
         private bool ContainUppercase(string text)
         {
             return text.Any(ch => char.IsUpper(ch));
         }
 
+        // Method that checks if a string contains numbers.
         private bool ContainNumber(string text)
         {
             return text.Any(ch => char.IsDigit(ch));
         }
 
+        // Method that checks if a string contains special characters.
         private bool ContainSpecial(string text)
         {
             return text.Any(ch => !char.IsLetterOrDigit(ch));

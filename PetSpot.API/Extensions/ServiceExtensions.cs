@@ -25,6 +25,11 @@ namespace PetSpot.API.Extensions
     /// </summary>
     public static class ServiceExtensions
     {
+        /// <summary>
+        /// Configures Cors which is necessary to connect the API
+        /// with an external application.
+        /// </summary>
+        /// <param name="services"></param>
         public static void ConfigureCors(this IServiceCollection services)
         {
             services.AddCors(options =>
@@ -36,6 +41,10 @@ namespace PetSpot.API.Extensions
             });
         }
 
+        /// <summary>
+        /// Configures IIS Integration options.
+        /// </summary>
+        /// <param name="services"></param>
         public static void ConfigureIISIntegration(this IServiceCollection services)
         {
             services.Configure<IISOptions>(options =>
@@ -44,12 +53,23 @@ namespace PetSpot.API.Extensions
             });
         }
 
+        /// <summary>
+        /// Configures the database context and establishes a connection
+        /// with the database.
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="Configuration"></param>
         public static void ConfigureDatabaseContext(this IServiceCollection services, IConfiguration Configuration)
         {
             services.AddDbContext<PetSpotDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("PetSpotDb")));
         }
 
+        /// <summary>
+        /// Configures swagger which is used to document and test
+        /// the API.
+        /// </summary>
+        /// <param name="services"></param>
         public static void ConfigureSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(c =>
@@ -85,6 +105,12 @@ namespace PetSpot.API.Extensions
             });
         }
 
+        /// <summary>
+        /// Configures Jwt Token settings and handles the creation of JWT Bearer 
+        /// Token which is necessary for authorization.
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="Configuration"></param>
         public static void ConfigureJwtSettings(this IServiceCollection services, IConfiguration Configuration)
         {
             var jwtSettings = new JwtSettings();
@@ -110,6 +136,10 @@ namespace PetSpot.API.Extensions
             });
         }
 
+        /// <summary>
+        /// Configures identity classes.
+        /// </summary>
+        /// <param name="services"></param>
         public static void ConfigureIdentity(this IServiceCollection services)
         {
             services.AddIdentity<User, UserRole>()
@@ -118,22 +148,40 @@ namespace PetSpot.API.Extensions
             services.AddTransient<UserResolverService>();
         }
 
+        /// <summary>
+        /// Configures custom logging services using the Nlog library.
+        /// </summary>
+        /// <param name="services"></param>
         public static void ConfigureLoggingServices(this IServiceCollection services)
         {
             services.AddSingleton<ILoggerManager, LoggerManager>();
         }
 
+        /// <summary>
+        /// Adds controller services. Each controller has its controller service
+        /// which hides implementation details and makes the controller more readable.
+        /// </summary>
+        /// <param name="services"></param>
         public static void AddControllerServices(this IServiceCollection services)
         {
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IAnimalsService, AnimalsService>();
         }
 
+        /// <summary>
+        /// Adds repositories which hide implementation details for certain 
+        /// objects (location) from animal service.
+        /// </summary>
+        /// <param name="services"></param>
         public static void AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<ILocationRepository, LocationRepository>();
         }
 
+        /// <summary>
+        /// Adds validators for various binding model classes.
+        /// </summary>
+        /// <param name="services"></param>
         public static void AddValidationServices(this IServiceCollection services)
         {
             services.AddTransient<IValidator<AuthorizeBm>, AuthorizeBmValidator>();

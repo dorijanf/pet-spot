@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace PetSpot.API.Services
 {
+    /// <inheritdoc/>
     public class AnimalsService : IAnimalsService
     {
         private readonly IMapper mapper;
@@ -154,11 +155,7 @@ namespace PetSpot.API.Services
             }
         }
 
-        /// <summary>
-        /// A private method that retrieves the currently logged in
-        /// user.
-        /// </summary>
-        /// <returns></returns>
+        // A private method that retrieves the currently logged in
         private string GetCurrentUser()
         {
             var currentUser = userResolverService.GetUser();
@@ -166,13 +163,9 @@ namespace PetSpot.API.Services
             return userId;
         }
 
-        /// <summary>
-        /// A private method that retrieves animal data for a user.
-        /// If the animal's user is not the user requesting the data,
-        /// the method will return a 403 Forbidden error.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        // A private method that retrieves animal data for a user.
+        // If the animal's user is not the user requesting the data,
+        // the method will return a 403 Forbidden error.
         private async Task<Animal> GetAnimalData(int id)
         {
             var animal = await context.Animals.FindAsync(id);

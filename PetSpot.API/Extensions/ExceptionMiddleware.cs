@@ -23,6 +23,13 @@ namespace PetSpot.API.Extensions
             this.logger = logger;
         }
 
+        /// <summary>
+        /// Method that intercepts http requests and catches
+        /// possible exceptions. If no custom exceptions are caught,
+        /// returns a 500 Internal Server Error.
+        /// </summary>
+        /// <param name="httpContext"></param>
+        /// <returns></returns>
         public async Task InvokeAsync(HttpContext httpContext)
         {
             try
@@ -54,6 +61,8 @@ namespace PetSpot.API.Extensions
             }
         }
 
+        // Helper method that returns a custom ExceptionDetails model
+        // which contains error's status code and message
         private Task HandleExceptionAsync(HttpContext context, Exception exception,
             int statusCode = (int)HttpStatusCode.InternalServerError)
         {

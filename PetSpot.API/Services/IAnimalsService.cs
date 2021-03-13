@@ -4,6 +4,10 @@ using System.Threading.Tasks;
 
 namespace PetSpot.API.Services
 {
+    /// <summary>
+    /// Animal service interface. It contains all methods
+    /// concerning animal management. 
+    /// </summary>
     public interface IAnimalsService
     {
         Task<int> CreateAnimal(AnimalBm model);
