@@ -9,24 +9,24 @@ namespace PetSpot.API.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        public IAccountService accountService { get; }
+        public IAccountService AccountService { get; }
 
-        public AccountController(IAccountService accountService)
+        public AccountController(IAccountService AccountService)
         {
-            this.accountService = accountService;
+            this.AccountService = AccountService;
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Authorize(AuthorizeBm model)
         {
-            var result = await accountService.Authorize(model);
+            var result = await AccountService.Authorize(model);
             return Ok(result);
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterUserBm model)
         {
-            await accountService.Register(model);
+            await AccountService.Register(model);
             return Ok("User seccessfully registered.");
         }
     }

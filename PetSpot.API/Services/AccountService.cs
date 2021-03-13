@@ -112,10 +112,12 @@ namespace PetSpot.API.Services
         /// <returns>Token result object containing the token and expiration date</returns>
         private async Task<TokenResultDto> CreateTokenAsync(User user)
         {
-            var claims = new List<Claim>();
-            claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
-            claims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.UserName));
-            claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
             var userRoles = await userManager.GetRolesAsync(user);
             claims.AddRange(userRoles.Select(x => new Claim(ClaimTypes.Role, x)));
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key));

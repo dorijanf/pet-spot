@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PetSpot.API.Configuration;
+using PetSpot.API.Repositories;
 using PetSpot.API.Services;
 using PetSpot.DATA;
 using PetSpot.DATA.Entities;
@@ -125,12 +126,19 @@ namespace PetSpot.API.Extensions
         public static void AddControllerServices(this IServiceCollection services)
         {
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IAnimalsService, AnimalsService>();
+        }
+
+        public static void AddRepositories(this IServiceCollection services)
+        {
+            services.AddScoped<ILocationRepository, LocationRepository>();
         }
 
         public static void AddValidationServices(this IServiceCollection services)
         {
             services.AddTransient<IValidator<AuthorizeBm>, AuthorizeBmValidator>();
             services.AddTransient<IValidator<RegisterUserBm>, RegisterUserBmValidator>();
+            services.AddTransient<IValidator<AnimalBm>, AnimalBmValidator>();
         }
     }
 }

@@ -26,9 +26,11 @@ namespace PetSpot.API
             services.ConfigureLoggingServices();
             services.AddValidationServices();
             services.AddControllerServices();
+            services.AddRepositories();
             services.ConfigureCors();
             services.ConfigureIISIntegration();
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.ConfigureSwagger();
             services.ConfigureDatabaseContext(Configuration);
             services.ConfigureIdentity();

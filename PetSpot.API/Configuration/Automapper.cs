@@ -10,6 +10,11 @@ namespace PetSpot.API.Configuration
         {
             CreateMap<TokenResultDto, AuthorizeResponseDto>();
             CreateMap<RegisterUserBm, User>();
+            CreateMap<AnimalBm, Animal>();
+            CreateMap<Animal, AnimalDto>();
+            CreateMap<LocationBm, Location>();
+            CreateMap<Location, LocationBm>();
+            CreateMap<AnimalBm, LocationBm>();
         }
     }
 }
