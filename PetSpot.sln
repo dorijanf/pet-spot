@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetSpot.API", "PetSpot.API\PetSpot.API.csproj", "{A24F3E7A-BE0A-4CB2-A8A4-928507183EB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetSpot.API", "PetSpot.API\PetSpot.API.csproj", "{A24F3E7A-BE0A-4CB2-A8A4-928507183EB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetSpot.DATA", "PetSpot.DATA\PetSpot.DATA.csproj", "{5B866DCE-AB1D-4E6C-A916-BF310D3D08E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetSpot.DATA", "PetSpot.DATA\PetSpot.DATA.csproj", "{5B866DCE-AB1D-4E6C-A916-BF310D3D08E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetSpot.LOGGING", "PetSpot.LOGGING\PetSpot.LOGGING.csproj", "{A9DBA9FF-963A-4900-A417-FC1BFA7D8B1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetSpot.LOGGING", "PetSpot.LOGGING\PetSpot.LOGGING.csproj", "{A9DBA9FF-963A-4900-A417-FC1BFA7D8B1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

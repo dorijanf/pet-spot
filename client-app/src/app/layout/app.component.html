@@ -1,0 +1,11 @@
+<div *ngIf="isAuthenticated">
+  <app-header></app-header>
+  <mat-drawer-container autosize>
+    <mat-drawer #drawer mode="side">
+      <app-left-panel></app-left-panel>
+    </mat-drawer>
+  </mat-drawer-container>
+</div>
+<div *ngIf="!isAuthenticated">
+  <app-login></app-login>
+</div>
