@@ -1,0 +1,22 @@
+<div class="center-container" *ngIf="(model$ | async) as model">
+  <div class="form-container">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>{{model.name}}</mat-card-title>
+        <mat-card-subtitle>{{convertToName(model.speciesId)}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          Breed: {{model.breed}}
+        </p>
+        <p>
+          Owner: {{model.userId}}
+        </p>
+        <p>
+          {{model.description}}
+        </p>
+      </mat-card-content>
+      <button mat-flat-button color="primary" type="button" [routerLink]="['']">Back</button>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="center-container">
+  <div class="form-container">
+    <h1>{{title}}</h1>
+    <form [formGroup]="animalCreateForm" (ngSubmit)="onSubmit()">
+      <mat-label>General Information</mat-label>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" placeholder="" formControlName="name">
+        <mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
+          <div *ngIf="name.errors.required">
+            Please, enter your username.
+          </div>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Breed</mat-label>
+        <input matInput type="text" placeholder="" formControlName="breed">
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Age</mat-label>
+        <mat-select formControlName="age">
+          <mat-option *ngFor="let index of counter(100); let i = index" value={{i}}>{{i}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Species</mat-label>
+        <mat-select formControlName="speciesId">
+          <mat-option *ngFor="let name of speciesNames; let i = index" value={{i}}>{{name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Description</mat-label>
+        <input matInput type="text" placeholder="" formControlName="description">
+        <mat-error *ngIf="description.invalid && (description.dirty || description.touched)">
+          <div *ngIf="name.errors.maxlength">
+            Description can have a maximum of 1024 characters.
+          </div>
+        </mat-error>
+      </mat-form-field>
+      <mat-label>Coordinates</mat-label>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Coordinate X</mat-label>
+        <input matInput type="number" placeholder="" formControlName="coordX">
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Coordinate Y</mat-label>
+        <input matInput type="number" placeholder="" formControlName="coordY">
+      </mat-form-field>
+
+      <button class="form-submit" mat-flat-button color="primary" type="submit"
+        [disabled]="!animalCreateForm.valid">{{submitText}}</button>
+      <button class="form-cancel" [routerLink]="['']" mat-stroked-button>Cancel</button>
+
+    </form>
+  </div>
+</div>

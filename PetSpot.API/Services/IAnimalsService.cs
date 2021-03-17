@@ -15,5 +15,6 @@ namespace PetSpot.API.Services
         Task<AnimalDto> GetAnimal(int id);
         Task<int> UpdateAnimal(AnimalBm model, int id);
         Task DeleteAnimal(int id);
+        Task UpdateAnimalLocation(LocationBm model);
     }
 }

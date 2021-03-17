@@ -27,7 +27,7 @@ namespace PetSpot.API.Controllers
         public async Task<IActionResult> Register(RegisterUserBm model)
         {
             await AccountService.Register(model);
-            return Ok("User seccessfully registered.");
+            return Ok();
         }
     }
 }

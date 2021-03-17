@@ -12,10 +12,10 @@ import { RegisterUserBm } from 'src/app/generated-models/register-user-bm';
 })
 
 export class AccountService {
-  private currentUserSubject: BehaviorSubject<AuthorizeResponseDto>;
-  public currentUser: Observable<AuthorizeResponseDto>;
   apiUrl: string;
   appUrl: string;
+  private currentUserSubject: BehaviorSubject<AuthorizeResponseDto>;
+  public currentUser: Observable<AuthorizeResponseDto>;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -33,7 +33,7 @@ export class AccountService {
     this.currentUserSubject = new BehaviorSubject<AuthorizeResponseDto>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
     this.apiUrl = this.config.setting['PathAPI'];
-    this.appUrl = '/api/Account/'
+    this.appUrl = 'api/Account/'
   }
 
   /**
@@ -74,6 +74,7 @@ export class AccountService {
    * @returns Information about currently logged in user
    */
   public get currentUserValue(): AuthorizeResponseDto {
+
     return this.currentUserSubject.value;
   }
 }

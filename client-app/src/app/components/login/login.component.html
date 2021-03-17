@@ -1,1 +1,26 @@
-<p>login works!</p>
+<div class="center-container">
+  <div class="form-container">
+    <img class="logo" src='../../../assets/img/logo.png' alt="logo">
+    <form [formGroup]="authenticationForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Username</mat-label>
+        <input matInput type="text" placeholder="" formControlName="username">
+        <mat-error *ngIf="username.invalid && (username.dirty || username.touched)">Please, enter your username.</mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" placeholder="" formControlName="password">
+        <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">Please, enter your password.</mat-error>
+      </mat-form-field>
+      <button class="form-submit" mat-flat-button color="primary" type="submit"
+        [disabled]="!authenticationForm.valid">Log In</button>
+    </form>
+    <p class="hint">Don't have an account?
+      <button [routerLink]="['/register']" mat-button color="primary">Sign up</button>
+    </p>
+  </div>
+</div>

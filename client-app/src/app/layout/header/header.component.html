@@ -1,1 +1,9 @@
-<button mat-button routerLink=" ['./logout'] ">Logout!</button>
+<mat-toolbar color="primary">
+  <img class="logo-small" src="../../../assets/img/logo-small.png">
+  <span>PetSpot</span>
+  <span class="toolbar-spacer"></span>
+  <span *ngIf="user">
+    <span class="toolbar-greeting">{{user['userName']}}</span>
+    <button mat-button color="accent" (click)="logout()">Log Out</button>
+  </span>
+</mat-toolbar>

@@ -67,6 +67,10 @@ namespace PetSpot.API.Services
             }
         }
 
+        /// <summary>
+        /// Returns a list of all animals for the currently logged in user
+        /// </summary>
+        /// <returns>List containing animal objects</returns>
         public async Task<List<AnimalDto>> GetAnimals()
         {
             var userId = GetCurrentUser();
@@ -85,7 +89,7 @@ namespace PetSpot.API.Services
         }
 
         /// <summary>
-        /// Find an animal by its id and deletes it. If the animal can 
+        /// Finds an animal by its id and deletes it. If the animal can 
         /// not be found by it's id the method throws a 404 Not Found.
         /// </summary>
         /// <param name="id"></param>
@@ -107,7 +111,7 @@ namespace PetSpot.API.Services
         }
 
         /// <summary>
-        /// Find an animal by its id and returns it's data. If the animal can 
+        /// Finds an animal by its id and returns it's data. If the animal can 
         /// not be found by it's id the method throws a 404 Not Found.
         /// </summary>
         /// <param name="id"></param>
@@ -127,7 +131,7 @@ namespace PetSpot.API.Services
         }
 
         /// <summary>
-        /// Find an animal by it's id and then updates it with the model
+        /// Finds an animal by its id and then updates it with the model
         /// parameter. If the animal can not be found the method throws
         /// a 404 Not Found.
         /// </summary>
@@ -152,6 +156,26 @@ namespace PetSpot.API.Services
             else
             {
                 throw new NotFoundException($"Animal with id {id} does not exist.");
+            }
+        }
+
+        /// <summary>
+        /// Find an animal by its id and update its location
+        /// </summary>
+        /// <param name="location">object containing animalId and coordinates</param>
+        /// <returns></returns>
+        public async Task UpdateAnimalLocation(LocationBm location)
+        {
+            var animal = await GetAnimalData(location.AnimalId);
+            if(animal != null)
+            {
+                animal.Location = mapper.Map<Location>(location);
+                context.Update(animal);
+                await context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new NotFoundException($"Animal with id {location.AnimalId} does not exist.");
             }
         }
 

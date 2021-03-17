@@ -1,0 +1,28 @@
+.full-width-table {
+  text-align: center;
+  width: 100%;
+}
+
+.mat-header-cell {
+  text-align: center;
+}
+
+.coordinate-input {
+  width: 70px;
+}
+
+.identity-columns {
+  text-align: left;
+}
+
+td.mat-cell.cdk-cell.cdk-column-name.mat-column-name.ng-star-inserted {
+  text-align: left;
+}
+
+td.mat-cell.cdk-cell.cdk-column-id.mat-column-id.ng-star-inserted {
+  text-align: left;
+}
+
+.mat-toolbar-row {
+  background-color:#fff;
+}

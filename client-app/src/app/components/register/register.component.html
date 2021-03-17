@@ -1,1 +1,75 @@
-<p>register works!</p>
+<div class="center-container">
+  <div class="form-container">
+    <img class="logo" src='../../../assets/img/logo.png' alt="logo">
+    <form [formGroup]="authenticationForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Username</mat-label>
+        <input matInput type="text" placeholder="" formControlName="userName">
+        <mat-error *ngIf="userName.invalid && (userName.dirty || userName.touched)">
+          <div *ngIf="userName.errors.required">
+            Please, enter your username.
+          </div>
+          <div *ngIf="userName.errors.minlength">
+            Username must have at least 6 characters.
+          </div>
+          <div *ngIf="userName.errors.maxlength">
+            Username can have a maximum of 30 characters.
+          </div>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput type="text" placeholder="" formControlName="firstName">
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput type="text" placeholder="" formControlName="lastName">
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" placeholder="" formControlName="password">
+        <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
+          <div class="error-text" *ngIf="password.errors.required">
+            Please, enter your password.
+          </div>
+          <div class="error-text" *ngIf="password.errors.hasNumber">
+            Password must have at least one number.
+          </div>
+          <div class="error-text" *ngIf="password.errors.hasCapitalCase">
+            Password must have at least one capital letter.
+          </div>
+          <div class="error-text" *ngIf="password.errors.hasSmallCase">
+            Password must have at least one lower case letter.
+          </div>
+          <div class="error-text" *ngIf="password.errors.hasSpecialCharacters">
+            Password must have at least one special character.
+          </div>
+          <div class="error-text" *ngIf="password.errors.minlength">
+            Password must have at least 10 characters.
+          </div>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" placeholder="" formControlName="email">
+        <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">Please, enter a valid email address.
+        </mat-error>
+      </mat-form-field>
+
+      <button class="form-submit" mat-flat-button color="primary" type="submit"
+        [disabled]="!authenticationForm.valid">Register</button>
+
+    </form>
+    <p class="hint">Already have an account?
+      <button [routerLink]="['/login']" mat-button color="primary">Log In</button>
+    </p>
+  </div>
+</div>

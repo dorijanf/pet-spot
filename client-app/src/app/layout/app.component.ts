@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AccountService } from 'src/services/account.service';
-import { Authentication } from '../helpers/authentication';
 
 @Component({
   selector: 'app-root',
@@ -10,13 +10,4 @@ import { Authentication } from '../helpers/authentication';
 export class AppComponent {
   isAuthenticated: boolean;
   title = 'PetSpot';
-
-  constructor(private authentication: Authentication) {
-
-  }
-
-  ngOnInit() {
-    this.isAuthenticated = this.authentication.isAuthenticated();
-  }
-
 }

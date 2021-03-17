@@ -1,1 +1,60 @@
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+body {
+  margin: 0;
+}
+
+.center-container {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container {
+  width: 300px;
+}
+
+.form-field {
+  display: block;
+}
+
+.logo {
+  width:100%;
+  height:100%;
+  margin-bottom: 20px;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.hint {
+  text-align:center;
+}
+
+.form-submit {
+  width: 100%;
+}
+
+.form-cancel {
+  width: 100%;
+}
+
+h1 {
+  color: #673AB7;
+  text-align: center;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.logo-small {
+  width: 2.5%;
+  margin-right: 10px;
+}
+
+.toolbar-greeting {
+  font-size: 18px;
+}

@@ -63,12 +63,10 @@ $Imports
 export class $ClassName   {
     $CustomProperties
     }]$Enums(*)[export enum $Name { $Values[
-        $name = $Value][,]
+        $Name = $Value][,]
 }]
 
 $Classes(*Bm)[
 export class $ClassName   {
     $CustomProperties
-    }]$Enums(*)[export enum $Name { $Values[
-        $name = $Value][,]
-}]
+    }]

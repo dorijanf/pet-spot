@@ -1,17 +1,21 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { ListComponent } from "./components/list/list.component";
 import { LoginComponent } from "./components/login/login.component";
-import { LogoutComponent } from "./components/login/logout.component";
 import { RegisterComponent } from "./components/register/register.component";
 import { AuthGuard } from '../app/helpers/auth.guard';
+import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
+import { MainContentComponent } from "./layout/main-content/main-content.component";
+import { AnimalCreateComponent } from "./components/animal-create/animal-create.component";
+import { AnimalDetailsComponent } from "./components/animal-details/animal-details.component";
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full'},
+  { path: '', component: MainContentComponent, pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard]},
-  { path: 'register', component: RegisterComponent},
-  { path: 'list', component: ListComponent, canActivate: [AuthGuard]}
+  { path: 'register', component: RegisterComponent },
+  { path: 'create', component: AnimalCreateComponent, canActivate: [AuthGuard] },
+  { path: 'edit/:id', component: AnimalCreateComponent, canActivate: [AuthGuard] },
+  { path: 'details/:id', component: AnimalDetailsComponent, canActivate: [AuthGuard] },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
@@ -19,4 +23,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 
-export class AppRoutingModule {}
+export class AppRoutingModule { }

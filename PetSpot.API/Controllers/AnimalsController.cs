@@ -39,7 +39,7 @@ namespace PetSpot.API.Controllers
         public async Task<IActionResult> DeleteAnimal([FromRoute] int id)
         {
             await AnimalsService.DeleteAnimal(id);
-            return Ok($"Animal with id {id} successfully deleted.");
+            return Ok();
         }
 
         [HttpGet]
@@ -58,6 +58,14 @@ namespace PetSpot.API.Controllers
         {
             var result = await AnimalsService.UpdateAnimal(model, id);
             return Ok(result);
+        }
+
+        [HttpPatch]
+        [Authorize(Roles = "Registered user")]
+        public async Task<IActionResult> UpdateAnimalLocation([FromBody] LocationBm model)
+        {
+            await AnimalsService.UpdateAnimalLocation(model);
+            return Ok();
         }
     }
 }
