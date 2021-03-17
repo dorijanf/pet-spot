@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AccountService } from 'src/services/account.service';
 
 @Component({
   selector: 'app-root',

@@ -30,6 +30,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { AnimalDetailsComponent } from './components/animal-details/animal-details.component';
 import { AnimalDeleteComponent } from './components/animal-delete/animal-delete.component';
+import { MapComponent } from './components/map/map.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { AnimalDeleteComponent } from './components/animal-delete/animal-delete.
     AnimalCreateComponent,
     AnimalDetailsComponent,
     AnimalDeleteComponent,
+    MapComponent,
   ],
   imports: [
     BrowserModule,
