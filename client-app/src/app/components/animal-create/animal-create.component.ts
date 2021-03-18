@@ -59,6 +59,7 @@ export class AnimalCreateComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.animalCreateForm.value['speciesId']);
     this.animalCreateForm.value['age'] = parseInt(this.animalCreateForm.value['age']);
     if (this.aRoute.snapshot.params['id']) {
       this.animalCreateForm.value['speciesId'] = parseInt(this.animalCreateForm.value['speciesId']);
@@ -69,7 +70,8 @@ export class AnimalCreateComponent implements OnInit {
           error => console.error(error));
     }
     else {
-      this.animalCreateForm.value['speciesId'] = parseInt(this.animalCreateForm.value['speciesId'] + 1);
+      console.log(parseInt(this.animalCreateForm.value['speciesId']) + 1);
+      this.animalCreateForm.value['speciesId'] = parseInt(this.animalCreateForm.value['speciesId']) + 1;
       this.animalsService.createAnimal(this.animalCreateForm.value)
         .subscribe(result => {
           this.router.navigate([''])
