@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
+using Bogus;
 using Microsoft.EntityFrameworkCore;
 using PetSpot.API.Configuration;
 using PetSpot.API.Repositories;
@@ -8,6 +8,7 @@ using PetSpot.DATA.Entities;
 using PetSpot.DATA.Exceptions;
 using PetSpot.DATA.Models;
 using PetSpot.LOGGING;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -122,7 +123,7 @@ namespace PetSpot.API.Services
 
             if (animal != null)
             {
-                var animalData = mapper.Map<AnimalDto>(animal); 
+                var animalData = mapper.Map<AnimalDto>(animal);
                 animalData.Location = await locationRepository.GetLocation(id);
                 return animalData;
             }
@@ -167,7 +168,7 @@ namespace PetSpot.API.Services
         public async Task UpdateAnimalLocation(LocationBm location)
         {
             var animal = await GetAnimalData(location.AnimalId);
-            if(animal != null)
+            if (animal != null)
             {
                 animal.Location = mapper.Map<Location>(location);
                 context.Update(animal);
@@ -201,5 +202,76 @@ namespace PetSpot.API.Services
 
             return animal;
         }
+
+
+        /// <summary>
+        /// Generates dummy animals and stores them in the database
+        /// </summary>
+        /// <returns></returns>
+        public async Task GenerateDummyData()
+        {
+            var generatedAnimals = await GenerateDummyAnimals();
+            await GenerateDummyLocations(generatedAnimals);
+        }
+
+        /// <summary>
+        /// Generates Dummy animals and stores them in the databse
+        /// </summary>
+        /// <returns>list of all generated animals</returns>
+        private async Task<List<Animal>> GenerateDummyAnimals()
+        {
+            var userId = GetCurrentUser();
+            var breeds = new[] { "Chihuahua", "English Bulldog", "French Bulldog", "Dogo Argentinto",
+                "Fox Terrier", "Mutt", "Poodle", "Boxer", "Miniature Schnautzer", "Medium Schnautzer",
+                "Large Schnautzer", "Shih Tzu", "Shiba Inu", "Akita Inu", "Jack Russell Terrier",
+                "West Highland Terrier", "Scottish Terrier", "Irish Setter", "Vizsla", "Australian Shepherd",
+                "Pirenese Mountain Dog", "Dobermann", "Rottweiler", "Syberian Husky", "Alaskan Malamut",
+                "Malteser", "Dalmatian", "German Shepherd", "Swiss Shepherd", "Cocker Spaniel"};
+            var generatedAnimals = new List<Animal>();
+            for (int i = 0; i < 20000; i++)
+            {
+                var animals = new Faker<Animal>()
+                    .RuleFor(x => x.Name, (f, x) => f.Name.FirstName())
+                    .RuleFor(x => x.Breed, (f, x) => f.PickRandom(breeds))
+                    .RuleFor(x => x.Age, (f, x) => Convert.ToByte(f.Random.Number(0, 20)))
+                    .RuleFor(x => x.Description, f => f.Lorem.Sentence(10))
+                    .RuleFor(x => x.UserId, f => userId)
+                    .RuleFor(x => x.IsDeleted, f => false)
+                    .RuleFor(x => x.SpeciesId, f => (int)SpeciesEnum.Dog);
+
+                var generatedAnimal = animals.Generate();
+
+                context.Add(generatedAnimal);
+                generatedAnimals.Add(generatedAnimal);
+                await context.SaveChangesAsync();
+            }
+            return generatedAnimals;
+        }
+
+        /// <summary>
+        /// Generates Dummy locations based on the number of generated animals
+        /// </summary>
+        /// <param name="animals">Takes a list of animals</param>
+        /// <returns></returns>
+        private async Task GenerateDummyLocations(List<Animal> animals)
+        {
+            var animalIds = new List<int>();
+            foreach (var animal in animals)
+            {
+                animalIds.Add(animal.Id);
+            }
+
+            foreach (var id in animalIds)
+            {
+                var locations = new Faker<Location>()
+                    .RuleFor(x => x.AnimalId, f => id)
+                    .RuleFor(x => x.CoordX, f => f.Random.Double(-90, 90))
+                    .RuleFor(x => x.CoordY, f => f.Random.Double(-180, 180));
+                var location = locations.Generate();
+                context.Add(location);
+                await context.SaveChangesAsync();
+            }
+        }
     }
 }
+

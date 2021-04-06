@@ -67,5 +67,14 @@ namespace PetSpot.API.Controllers
             await AnimalsService.UpdateAnimalLocation(model);
             return Ok();
         }
+
+        [HttpPost]
+        [Authorize(Roles = "Registered user")]
+        [Route("generate-dummy-data")]
+        public async Task<IActionResult> GenerateDummyData()
+        {
+            await AnimalsService.GenerateDummyData();
+            return Ok();
+        }
     }
 }
