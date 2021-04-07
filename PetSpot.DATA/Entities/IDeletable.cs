@@ -1,4 +1,6 @@
-﻿namespace PetSpot.DATA.Entities
+﻿using System;
+
+namespace PetSpot.DATA.Entities
 {
     interface IDeletable
     {

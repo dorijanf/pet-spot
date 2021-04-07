@@ -166,6 +166,7 @@ namespace PetSpot.API.Extensions
         {
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IAnimalsService, AnimalsService>();
+            services.AddScoped<ISyncService, SyncService>();
         }
 
         /// <summary>

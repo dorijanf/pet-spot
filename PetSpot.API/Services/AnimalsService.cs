@@ -48,7 +48,12 @@ namespace PetSpot.API.Services
         {
             var animal = mapper.Map<Animal>(model);
             var userId = GetCurrentUser();
+
             animal.UserId = userId;
+
+            // will be better to put in constructor of DTO or Bm
+            animal.CreatedAt = DateTime.Now;
+            animal.UpdatedAt = DateTime.Now;
 
             var userAnimals = await context.Animals.Where(x => x.UserId == userId)
                                      .FirstOrDefaultAsync(x => x.Name == model.Name);
@@ -143,6 +148,9 @@ namespace PetSpot.API.Services
         {
             var animal = await GetAnimalData(id);
 
+            // will be better to put in constructor of DTO or Bm
+            animal.UpdatedAt = DateTime.Now;
+
             if (animal != null)
             {
                 animal = mapper.Map(model, animal);
@@ -220,15 +228,20 @@ namespace PetSpot.API.Services
         /// <returns>list of all generated animals</returns>
         private async Task<List<Animal>> GenerateDummyAnimals()
         {
+            var numberOfRecords = 30;
+
             var userId = GetCurrentUser();
+
             var breeds = new[] { "Chihuahua", "English Bulldog", "French Bulldog", "Dogo Argentinto",
                 "Fox Terrier", "Mutt", "Poodle", "Boxer", "Miniature Schnautzer", "Medium Schnautzer",
                 "Large Schnautzer", "Shih Tzu", "Shiba Inu", "Akita Inu", "Jack Russell Terrier",
                 "West Highland Terrier", "Scottish Terrier", "Irish Setter", "Vizsla", "Australian Shepherd",
                 "Pirenese Mountain Dog", "Dobermann", "Rottweiler", "Syberian Husky", "Alaskan Malamut",
                 "Malteser", "Dalmatian", "German Shepherd", "Swiss Shepherd", "Cocker Spaniel"};
+
             var generatedAnimals = new List<Animal>();
-            for (int i = 0; i < 20000; i++)
+
+            for (int i = 0; i < numberOfRecords; i++)
             {
                 var animals = new Faker<Animal>()
                     .RuleFor(x => x.Name, (f, x) => f.Name.FirstName())
@@ -237,6 +250,8 @@ namespace PetSpot.API.Services
                     .RuleFor(x => x.Description, f => f.Lorem.Sentence(10))
                     .RuleFor(x => x.UserId, f => userId)
                     .RuleFor(x => x.IsDeleted, f => false)
+                    .RuleFor(x => x.CreatedAt, f => DateTime.Now.AddMinutes(-30))
+                    .RuleFor(x => x.UpdatedAt, f => DateTime.Now.AddMinutes(-30))
                     .RuleFor(x => x.SpeciesId, f => (int)SpeciesEnum.Dog);
 
                 var generatedAnimal = animals.Generate();
@@ -245,6 +260,7 @@ namespace PetSpot.API.Services
                 generatedAnimals.Add(generatedAnimal);
                 await context.SaveChangesAsync();
             }
+
             return generatedAnimals;
         }
 
@@ -266,6 +282,8 @@ namespace PetSpot.API.Services
                 var locations = new Faker<Location>()
                     .RuleFor(x => x.AnimalId, f => id)
                     .RuleFor(x => x.CoordX, f => f.Random.Double(-90, 90))
+                    .RuleFor(x => x.UpdatedAt, f => DateTime.Now.AddMinutes(-30))
+                    .RuleFor(x => x.CreatedAt, f => DateTime.Now.AddMinutes(-30))
                     .RuleFor(x => x.CoordY, f => f.Random.Double(-180, 180));
                 var location = locations.Generate();
                 context.Add(location);

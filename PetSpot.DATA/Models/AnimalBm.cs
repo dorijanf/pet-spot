@@ -1,4 +1,6 @@
-﻿namespace PetSpot.DATA.Models
+﻿using System;
+
+namespace PetSpot.DATA.Models
 {
     public class AnimalBm
     {

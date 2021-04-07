@@ -1,6 +1,8 @@
-﻿namespace PetSpot.DATA.Entities
+﻿using System;
+
+namespace PetSpot.DATA.Entities
 {
-    public class Animal : IDeletable
+    public class Animal : IDeletable, ITimestamps
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -13,5 +15,7 @@
         public Location Location { get; set; }
         public Species Species { get; set; }
         public bool IsDeleted { get; set; }
+        public DateTime UpdatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }
